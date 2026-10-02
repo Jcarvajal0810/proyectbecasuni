@@ -1,0 +1,138 @@
+@import 'tailwindcss';
+
+/*
+ * Tokens de `docs/design/visual-direction.md` §9, transcritos literalmente.
+ * `--line-control` existe porque los tokens de borde originales (#41415F, 2.07)
+ * fallan el mínimo de 3:1 que WCAG exige a un componente interactivo.
+ */
+
+:root {
+  --surface-0: #050510;
+  --surface-1: #0a0a18;
+  --surface-2: #101022;
+  --surface-3: #16162e;
+  --surface-inset: #08080f;
+  --surface-verbatim: #100e0c;
+
+  --text-primary: #f5f7ff;
+  --text-secondary: #c3c8dc;
+  --text-muted: #9aa0bc;
+  --text-faint: #767c9b;
+  --text-verbatim: #b5afa6;
+  --text-accent: #4d7cfe;
+  --text-accent-hi: #7c9cff;
+  --text-closed-on-3: #9a98b2;
+
+  --accent: #4d7cfe;
+  --accent-hover: #6d93ff;
+  --accent-dim: #2e56d8;
+  --accent-on: #050510;
+  --focus-ring: #9dc0ff;
+  --focus-ring-inner: #050510;
+
+  --state-open: #3ddc84;
+  --state-upcoming: #9bb0f5;
+  --state-unknown: #5ec6da;
+  --state-paused: #e2a33f;
+  --state-closed: #7c7a93;
+  --state-expired: #a08a76;
+
+  --line-subtle: #1c1c31;
+  --line: #2b2b48;
+  --line-strong: #41415f;
+  --line-control: #636a93;
+  --line-verbatim: #6b5c4b;
+
+  --font-sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, Consolas, monospace;
+
+  /* Bordes selectivos, no un radio uniforme en todo (regla anti-generic). */
+  --radius-control: 8px;
+  --radius-panel: 14px;
+  --radius-record: 10px;
+}
+
+@theme inline {
+  --color-surface-0: var(--surface-0);
+  --color-surface-1: var(--surface-1);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-surface-inset: var(--surface-inset);
+  --color-surface-verbatim: var(--surface-verbatim);
+  --color-ink: var(--text-primary);
+  --color-ink-2: var(--text-secondary);
+  --color-ink-muted: var(--text-muted);
+  --color-ink-faint: var(--text-faint);
+  --color-ink-verbatim: var(--text-verbatim);
+  --color-accent: var(--accent);
+  --color-accent-hi: var(--accent-hover);
+  --color-accent-on: var(--accent-on);
+  --color-state-open: var(--state-open);
+  --color-state-upcoming: var(--state-upcoming);
+  --color-state-unknown: var(--state-unknown);
+  --color-state-paused: var(--state-paused);
+  --color-state-closed: var(--state-closed);
+  --color-state-expired: var(--state-expired);
+  --color-line: var(--line);
+  --color-line-control: var(--line-control);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+}
+
+* {
+  border-color: var(--line);
+}
+
+html {
+  background: var(--surface-0);
+  color-scheme: dark;
+}
+
+body {
+  background: var(--surface-0);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  /* Toda cifra usa cifras tabulares: comparar deadlines alineadas importa. */
+  font-variant-numeric: tabular-nums;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* El foco es siempre visible y con contraste ≥ 3:1 sobre cualquier superficie. */
+:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--accent-on);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Utilidades que la dirección visual declara explícitamente. */
+.label {
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.verbatim {
+  background: var(--surface-verbatim);
+  border-left: 2px solid var(--line-verbatim);
+  color: var(--text-verbatim);
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
